@@ -38,13 +38,13 @@
                 p.fecha_nacimiento,
 
 
-                e.nombre as eps_nombre,
-                e.nit,
+                e.nombre as Eps_nombre,
+                e.nit as Eps_nit,
 
-                c.idCONSULTAS,
-                c.fecha_y_hora,
-                c.resumen,
-                c.costo
+                c.idCONSULTAS as Consulta_idCONSULTAS,
+                c.fecha_y_hora as Consulta_fecha_y_hora,
+                c.resumen as Consulta_resumen,
+                c.costo as Consulta_costo
             FROM  CM_PACIENTES as p left join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit
     
     </select>
@@ -53,16 +53,16 @@
         <id property='tipoId' column='tipo_id'/>
         <result property='nombre' column='nombre'/> 
         <result property='fechaNacimiento' column='fecha_nacimiento'/> 
-        <association property="eps" javaType="Eps" columnPrefix="EpsResult"></association>   
-        <collection property="consultas" ofType="Consulta" columnPrefix="ConsultaResult" ></collection>  
+        <association property="eps" javaType="Eps" columnPrefix="Eps_" resultMap="EpsResult" ></association>   
+        <collection property="consultas" ofType="Consulta" columnPrefix="Consulta_" resultMap="ConsultaResult"></collection>  
     </resultMap>
-    <resultMap type='Eps' id='CM_EPS' >
+    <resultMap type='Eps' id='EpsResult' >
         <id property='nit' column='nit'/> 
         <result property='nombre' column='nombre'/>
     </resultMap>
-    <resultMap type='Consulta' id='CM_CONSULTAS' >
+    <resultMap type='Consulta' id='ConsultaResult' >
         <id property='id' column='idCONSULTAS'/>
-        <result property='fechayhora' column='fecha_y_hora'/>
+        <result property='fechayHora' column='fecha_y_hora'/>
         <result property='resumen' column='resumen'/>
         <result property='costo' column='costo'/>        
     </resultMap>
