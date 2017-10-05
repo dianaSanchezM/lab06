@@ -4,5 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.eci.pdsw.persistence.impl.mappers.EpsMapper">
+    <select parameterType="map" id="loadAllEPS" resultMap="EpsResult"> 
+        select
+
+            e.nombre,
+            e.nit
+
+        FROM  CM_EPS as e
+    </select>
     
+    <resultMap type='Eps' id='EpsResult' >
+        <id property='nit' column='nit'/> 
+        <result property='nombre' column='nombre'/>
+    </resultMap>
 </mapper>
