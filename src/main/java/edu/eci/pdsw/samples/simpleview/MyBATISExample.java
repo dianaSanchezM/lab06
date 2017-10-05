@@ -6,6 +6,7 @@
 package edu.eci.pdsw.samples.simpleview;
 
 import edu.eci.pdsw.persistence.impl.mappers.PacienteMapper;
+import edu.eci.pdsw.samples.entities.Consulta;
 import edu.eci.pdsw.samples.entities.Paciente;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,12 +57,15 @@ public class MyBATISExample {
 
         //imprimir contenido de la lista
         for (Paciente p:pacientes){
-            System.out.println(p.getNombre());
+            System.out.println(p.getId()+" "+p.getNombre());
         }
         
-        Paciente paciente=pmapper.loadPacienteById(1026585448, "CC");
-        System.out.println(paciente.getNombre()+"  "+paciente.getEps()+paciente.getConsultas().isEmpty());
-                
+        Paciente paciente=pmapper.loadPacienteById(1026585441, "CC");
+        System.out.println("-------------------------");
+        System.out.println(paciente.getId()+" "+paciente.getNombre()+"  "+paciente.getEps().getNombre()+"\nConsultas: ");
+        for (Consulta c:paciente.getConsultas()){
+            System.out.println(c.getId()+" "+c.getResumen());
+        }
     }
 
     /**

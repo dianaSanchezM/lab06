@@ -5,61 +5,61 @@
   
   
 <mapper namespace="edu.eci.pdsw.persistence.impl.mappers.PacienteMapper">
-    
-
         
     <select parameterType="map" id="loadPacienteById" resultMap="PacienteResult">
-            select
+        select
     
-                p.id,
-                p.tipo_id,
-                p.nombre,
-                p.fecha_nacimiento,
+            p.id,
+            p.tipo_id,
+            p.nombre,
+            p.fecha_nacimiento,
 
 
-                e.nombre as eps_nombre,
-                e.nit,
+            e.nombre as Eps_nombre,
+            e.nit as Eps_nit,
 
-                c.idCONSULTAS,
-                c.fecha_y_hora,
-                c.resumen,
-                c.costo
-            FROM  CM_PACIENTES as p left join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit
-            WHERE p.id=#{idp} AND p.tipo_id=#{tipoidp}  
+            c.idCONSULTAS as Consulta_idCONSULTAS,
+            c.fecha_y_hora as Consulta_fecha_y_hora,
+            c.resumen as Consulta_resumen,
+            c.costo as Consulta_costo
+        FROM  CM_PACIENTES as p join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit
+        WHERE p.id=#{idp} AND p.tipo_id=#{tipoidp}  
     </select>
     
-       
     <select parameterType="map" id="loadPacientes" resultMap="PacienteResult">
-            select
-    
-                p.id,
-                p.tipo_id,
-                p.nombre,
-                p.fecha_nacimiento,
+        select
+        
+            p.id,
+            p.tipo_id,
+            p.nombre,
+            p.fecha_nacimiento,
 
 
-                e.nombre as Eps_nombre,
-                e.nit as Eps_nit,
+            e.nombre as Eps_nombre,
+            e.nit as Eps_nit,
 
-                c.idCONSULTAS as Consulta_idCONSULTAS,
-                c.fecha_y_hora as Consulta_fecha_y_hora,
-                c.resumen as Consulta_resumen,
-                c.costo as Consulta_costo
-            FROM  CM_PACIENTES as p left join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit
+            c.idCONSULTAS as Consulta_idCONSULTAS,
+            c.fecha_y_hora as Consulta_fecha_y_hora,
+            c.resumen as Consulta_resumen,
+            c.costo as Consulta_costo
+        FROM  CM_PACIENTES as p left join CM_CONSULTAS as c on p.id=c.PACIENTES_id left join CM_EPS as e on p.eps_nit=e.nit
     
     </select>
+    
     <resultMap type='Paciente' id='PacienteResult' >
         <id property='id' column='id'/>
         <id property='tipoId' column='tipo_id'/>
         <result property='nombre' column='nombre'/> 
         <result property='fechaNacimiento' column='fecha_nacimiento'/> 
-        <association property="eps" javaType="Eps" columnPrefix="Eps_" resultMap="EpsResult" ></association>   
-        <collection property="consultas" ofType="Consulta" columnPrefix="Consulta_" resultMap="ConsultaResult"></collection>  
+        <association property="eps" javaType="Eps" columnPrefix="Eps_" resultMap="EpsResult" />   
+        <collection property="consultas" javaType="Consulta" columnPrefix="Consulta_" resultMap="ConsultaResult"/> 
     </resultMap>
+    
     <resultMap type='Eps' id='EpsResult' >
         <id property='nit' column='nit'/> 
         <result property='nombre' column='nombre'/>
     </resultMap>
+    
     <resultMap type='Consulta' id='ConsultaResult' >
         <id property='id' column='idCONSULTAS'/>
         <result property='fechayHora' column='fecha_y_hora'/>
