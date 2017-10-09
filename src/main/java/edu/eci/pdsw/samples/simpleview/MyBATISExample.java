@@ -106,6 +106,12 @@ public class MyBATISExample {
     * @param p paciente a ser registrado
     */
     public static void actualizarPaciente(PacienteMapper pmap, Paciente p){
+        List<Consulta> consultas=(List)p.getConsultas();
+        for (Consulta c: consultas){
+            if (c.getId()==0){
+                pmap.insertConsulta(c, p.getId(),p.getTipoId());
+            }
+        }
         pmap.actualizarPaciente(p.getId(), p.getTipoId(), "Kevin", p.getEps(),p);
     }
     
